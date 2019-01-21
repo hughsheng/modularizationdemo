@@ -1,0 +1,54 @@
+apply plugin: 'com.android.library'
+
+//本地properties文件配置数据
+Properties properties = new Properties()
+def writer = project.rootProject.file('local_config.properties')
+properties.load(writer.newDataInputStream())
+
+android {
+    compileSdkVersion 28
+
+
+
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            buildConfigField "String", "WEIXIN_APPID", properties.getProperty("WEIXIN_APPID")
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField "String", "WEIXIN_APPID", properties.getProperty("WEIXIN_APPID")
+        }
+    }
+
+    //引入aar
+    repositories {
+        flatDir {
+            dirs 'libs'
+        }
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    //支付宝sdk
+    implementation(name: 'alipaySdk-15.5.9-20181123210601', ext: 'aar')
+    //微信sdk
+    implementation 'com.tencent.mm.opensdk:wechat-sdk-android-with-mta:5.1.6'
+    implementation 'com.android.support:appcompat-v7:28.0.0'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

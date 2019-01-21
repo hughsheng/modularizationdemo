@@ -1,0 +1,138 @@
+apply plugin: 'com.android.application'
+apply plugin: 'AndResGuard'
+apply from: '../commonsdk/common_config.gradle'
+
+//本地properties文件配置数据
+Properties properties = new Properties()
+def writer = project.rootProject.file('local_config.properties')
+properties.load(writer.newDataInputStream())
+def verCode = properties.getProperty("versionCode")
+def appVersionName = properties.getProperty("versionName")
+def appversionCode = verCode.toInteger()
+
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        applicationId "com.tl.sztangli.modularizationdemo"
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        flavorDimensions "default"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            buildConfigField "String", "SERVER_URL", properties.getProperty("RELEASE_SERVER_URL")
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField "String", "SERVER_URL", properties.getProperty("RELEASE_SERVER_URL")
+        }
+    }
+
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
+    }
+    applicationVariants.all { variant ->
+        variant.outputs.all { output ->
+            //开始输出,自定义输出路径
+            def outputFile = output.outputFile
+            def fileName = "widgeDemo.apk"
+            if (outputFile != null && outputFile.name.endsWith('.apk')) {
+                if (variant.buildType.name.equals('release')) {
+                    fileName = "v" + appVersionName +
+                            "_" + variant.productFlavors[0].name +
+                            properties.getProperty("release_apk_name")
+                } else if (variant.buildType.name.equals('debug')) {
+                    fileName = "v_" + appVersionName +
+                            "_" + variant.productFlavors[0].name +
+                            properties.getProperty("debug_apk_name")
+                }
+                outputFileName = fileName
+            }
+        }
+    }
+
+    productFlavors {
+        local {}
+        wandoujia {}
+        baidu {}
+        a360 {}
+        huawei {}
+        xiaomi {}
+        tengxun {}
+
+        //引入aar
+        repositories {
+            flatDir {
+                dirs 'libs','../commonservice/libs'
+            }
+        }
+    }
+
+    //设置渠道名
+    productFlavors.all {
+        flavor -> flavor.manifestPlaceholders = [CHANNEL_VALUE: name]
+    }
+
+}
+
+
+
+andResGuard {
+    // mappingFile = file("./resource_mapping.txt")
+    mappingFile = null
+    use7zip = true
+    useSign = true
+    // 打开这个开关，会keep住所有资源的原始路径，只混淆资源的名字
+    keepRoot = false
+    whiteList = [
+            // for your icon
+            "R.drawable.icon",
+            // for fabric
+            "R.string.com.crashlytics.*",
+            // for google-services
+            "R.string.google_app_id",
+            "R.string.gcm_defaultSenderId",
+            "R.string.default_web_client_id",
+            "R.string.ga_trackingId",
+            "R.string.firebase_database_url",
+            "R.string.google_api_key",
+            "R.string.google_crash_reporting_api_key"
+    ]
+    compressFilePattern = [
+            "*.png",
+            "*.jpg",
+            "*.jpeg",
+            "*.gif",
+    ]
+    sevenzip {
+        artifact = 'com.tencent.mm:SevenZip:1.2.15'
+        //path = "/usr/local/bin/7za"
+    }
+
+    /**
+     * 可选： 如果不设置则会默认覆盖assemble输出的apk
+     **/
+    // finalApkBackupPath = "${project.rootDir}/final.apk"
+
+    /**
+     * 可选: 指定v1签名时生成jar文件的摘要算法
+     * 默认值为“SHA-1”
+     **/
+    // digestalg = "SHA-256"
+}
+
+dependencies {
+
+    implementation project(":commonsdk")
+    implementation project(":commonservice")
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.2'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+}

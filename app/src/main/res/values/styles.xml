@@ -1,0 +1,21 @@
+<resources>
+
+    <!-- Base application theme -->
+    <style name="AppTheme" parent="Theme.AppCompat.Light.NoActionBar">
+        <!-- Customize your theme here. -->
+        <!--状态栏颜色-->
+        <item name="colorPrimary">@color/colorPrimary</item>
+        <!--通知栏颜色-->
+        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
+        <!--控件选中颜色-->
+        <item name="colorAccent">@color/blue</item>
+        <!--文字颜色主体-->
+        <item name="android:textColorPrimary">@color/black</item>
+        <!--去掉点击水波纹效果-->
+        <item name="android:selectableItemBackground">@null</item>
+        <item name="android:selectableItemBackgroundBorderless">@null</item>
+        <!--activity支持5.0动画跳转-->
+        <item name="android:windowActivityTransitions">true</item>
+    </style>
+
+</resources>
