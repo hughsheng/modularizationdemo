@@ -39,7 +39,7 @@
 
 
     <application
-        android:name=".app.ModularizationApplication"
+        android:name=".base.app.ModularizationApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

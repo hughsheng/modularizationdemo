@@ -1,6 +1,8 @@
 apply plugin: 'com.android.application'
 apply plugin: 'AndResGuard'
+apply plugin: 'app-joint'
 apply from: '../commonsdk/common_config.gradle'
+
 
 //本地properties文件配置数据
 Properties properties = new Properties()

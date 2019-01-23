@@ -13,6 +13,7 @@ import android.view.WindowManager;
 import com.tl.commonsdk.BuildConfig;
 import com.tl.commonsdk.api.ApiServiceComponent;
 import com.tl.commonsdk.api.ApiServiceModule;
+import com.tl.commonsdk.api.DaggerApiServiceComponent;
 import com.tl.commonsdk.service.BackService;
 import com.tl.commonsdk.util.NetworkUtils;
 import com.tl.commonsdk.util.SharedPreferencesUtils;
@@ -51,7 +52,7 @@ public abstract class AppApplication<T extends ApiServiceComponent> extends Appl
     mApplication = this;
     mSharedPreferencesUtils = SharedPreferencesUtils.getInstance(this);
     mApiServiceComponent = getComponent();
-//        DaggerApiServiceComponent.builder()
+//    DaggerApiServiceComponent.builder()
 //        .apiServiceModule(new ApiServiceModule(this, getBaseUrl()))
 //        .build();
     initDebug();
