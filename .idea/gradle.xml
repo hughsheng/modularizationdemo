@@ -12,6 +12,12 @@
             <option value="$PROJECT_DIR$/commonsdk" />
             <option value="$PROJECT_DIR$/commonservice" />
             <option value="$PROJECT_DIR$/commonui" />
+            <option value="$PROJECT_DIR$/router" />
+            <option value="$PROJECT_DIR$/startalone" />
+            <option value="$PROJECT_DIR$/startalone/work_one_alone" />
+            <option value="$PROJECT_DIR$/startalone/work_two_alone" />
+            <option value="$PROJECT_DIR$/work_one" />
+            <option value="$PROJECT_DIR$/work_two" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />

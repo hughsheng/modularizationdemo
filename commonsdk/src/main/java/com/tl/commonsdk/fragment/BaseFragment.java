@@ -100,10 +100,11 @@ public abstract class BaseFragment extends Fragment {
 
   public abstract int getLayoutResId();
 
-  public abstract void onUnBind();//fragment处于后台，进行一些对象的销毁操作
-
   //做一些初始化操作
   public abstract void initialization();
+
+  public abstract void onUnBind();//fragment处于后台，进行一些对象的销毁操作
+
 
   @Override
   public void onDestroyView() {

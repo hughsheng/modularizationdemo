@@ -1,1 +1,2 @@
-include ':app', ':commonsdk', ':commonservice', ':commonui'
+include ':app', ':commonsdk', ':commonservice', ':commonui', ':work_one', ':work_two', ':router',
+        ':startalone:work_one_alone', ':startalone:work_two_alone'
