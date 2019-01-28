@@ -2,6 +2,7 @@ package com.tl.commonsdk.fragment;
 
 import android.graphics.PorterDuff;
 import android.support.v4.app.FragmentManager;
+import android.support.v4.app.FragmentTransaction;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.widget.ContentLoadingProgressBar;
 import android.view.View;

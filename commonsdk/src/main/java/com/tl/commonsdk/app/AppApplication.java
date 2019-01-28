@@ -24,13 +24,14 @@ import java.util.List;
 import java.util.Map;
 
 import butterknife.ButterKnife;
+import io.github.prototypez.appjoint.core.AppSpec;
+import io.github.prototypez.appjoint.core.ModuleSpec;
 
 
 /**
  * Created by sztangli on 2017/7/13.
  * 全局基础类，管理全局单例
  */
-
 public abstract class AppApplication<T extends ApiServiceComponent> extends Application {
   private static AppApplication mApplication;//把application设置为静态对象
   private T mApiServiceComponent;
@@ -55,24 +56,6 @@ public abstract class AppApplication<T extends ApiServiceComponent> extends Appl
 //    DaggerApiServiceComponent.builder()
 //        .apiServiceModule(new ApiServiceModule(this, getBaseUrl()))
 //        .build();
-    initDebug();
-
-  }
-
-
-  private void initDebug() {
-    ButterKnife.setDebug(BuildConfig.DEBUG);
-    if (BuildConfig.DEBUG) {         //调试模式下,开启严格模式检测
-      StrictMode.setThreadPolicy(new StrictMode.ThreadPolicy.Builder()         //将对当前线程应用该策略
-          .detectDiskReads()         //监控磁盘读
-          .detectDiskWrites()        //监控磁盘写
-          .detectNetwork()           //监控网络访问
-          .detectAll()               //检测当前线程所有函数
-          .penaltyLog()              //表示将警告输出到LogCat，你也可以使用其他或增加新的惩罚（penalty）函数
-//                    .penaltyDeath()            //检测到不合法,杀死进程,自动退出app
-          .build());
-      LeakCanary.install(this);
-    }
   }
 
 

@@ -10,6 +10,7 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Toast;
 
+import com.tl.commonsdk.R;
 import com.tl.commonsdk.api.ApiServiceComponent;
 import com.tl.commonsdk.app.AppApplication;
 import com.tl.commonsdk.fragment.LoadingDialogFragment;
@@ -46,8 +47,10 @@ public abstract class BaseActivity extends AppCompatActivity {
     return ((ViewGroup) findViewById(android.R.id.content)).getChildAt(0);
   }
 
-
-  public abstract int getLayoutResId();
+  //默认布局，可重写该方法使用自定义布局
+  public int getLayoutResId() {
+    return R.layout.activity_base;
+  }
 
 
   protected ApiServiceComponent getApiServiceComponent() {

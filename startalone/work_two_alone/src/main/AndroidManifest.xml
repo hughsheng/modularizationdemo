@@ -3,7 +3,7 @@
     package="com.tl.work_two_alone">
 
     <application
-        android:name=".base.WorkTwoApplication"
+        android:name=".base.WorkTwoAloneApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"

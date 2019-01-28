@@ -21,7 +21,6 @@ public abstract class BaseFragment extends Fragment {
   protected View rootView;
   protected Unbinder mUnbinder;
   protected FragmentManager childManager;
-  protected LoadingDialogFragment loadingDialogFragment;
 
   public BaseFragment() {
     // Required empty public constructor
@@ -50,7 +49,6 @@ public abstract class BaseFragment extends Fragment {
     }
     mUnbinder = ButterKnife.bind(this, rootView);
     childManager = getChildFragmentManager();
-    loadingDialogFragment = LoadingDialogFragment.newInstance();
     return rootView;
   }
 
@@ -83,18 +81,6 @@ public abstract class BaseFragment extends Fragment {
 
   public void showSnackBarTip(int resId) {
     Snackbar.make(rootView, resId, Snackbar.LENGTH_SHORT).show();
-  }
-
-  public void showLoading(FragmentManager manager) {
-    loadingDialogFragment.show(manager, LoadingDialogFragment.TAG);
-  }
-
-  public void showLoadingWithStatus(FragmentManager manager, String status) {
-    loadingDialogFragment.showWithStatus(manager, status);
-  }
-
-  public void hideLoading() {
-    loadingDialogFragment.dismiss();
   }
 
 
