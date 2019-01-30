@@ -9,15 +9,19 @@ properties.load(writer.newDataInputStream())
 def verCode = properties.getProperty("versionCode")
 def appVersionName = properties.getProperty("versionName")
 def appversionCode = verCode.toInteger()
-
+def cgf = rootProject.ext.configuration
+def splib = rootProject.ext.surpportlibraries
+def testlib = rootProject.ext.testlibraries
+def thirdlib = rootProject.ext.thirdlibraries
 
 android {
-    compileSdkVersion 28
+    compileSdkVersion cgf.compileSdkVersion
     defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
+        minSdkVersion cgf.minSdkVersion
+        targetSdkVersion cgf.targetSdkVersion
+        buildToolsVersion cgf.buildToolsVersion
+        versionCode appversionCode
+        versionName appVersionName
         flavorDimensions "default"
         testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
     }
@@ -49,7 +53,7 @@ android {
 
 dependencies {
 //AppJoint
-    implementation "io.github.prototypez:app-joint-core:1.0"
+    implementation "io.github.prototypez:app-joint-core:1.5"
 //evenbus
     implementation 'org.greenrobot:eventbus:3.0.0'
     annotationProcessor 'org.greenrobot:eventbus-annotation-processor:3.0.1'

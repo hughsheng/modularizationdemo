@@ -1,65 +1,47 @@
 apply plugin: 'com.android.library'
-apply from: 'common_config.gradle'
+apply from: '../common_config.gradle'
 apply plugin: 'com.jakewharton.butterknife'
-android {
-    compileSdkVersion 28
 
-
-
-    defaultConfig {
-        minSdkVersion 21
-        targetSdkVersion 28
-        versionCode 1
-        versionName "1.0"
-
-        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
-
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
-        }
-    }
-
-}
+def cgf = rootProject.ext.configuration
+def splib = rootProject.ext.surpportlibraries
+def testlib = rootProject.ext.testlibraries
+def thirdlib = rootProject.ext.thirdlibraries
 
 dependencies {
     //本地依赖
     api fileTree(dir: 'libs', include: ['*.jar'])
 
     //google jetpack
-    api 'com.android.support:appcompat-v7:28.0.0'
-    api 'com.android.support:design:28.0.0'
-    api 'com.android.support.constraint:constraint-layout:1.1.3'
-    api "com.android.support:cardview-v7:28.0.0"
-    api "com.android.support:multidex:1.0.3"//谷歌分包方案，解决方法数最大值65536限制(api21以下需要该库)
+    api "com.android.support:appcompat-v7:$splib.supportLibrary"
+    api "com.android.support:design:$splib.supportLibrary"
+    api "com.android.support.constraint:constraint-layout:$splib.supportconstraint"
+    api "com.android.support:cardview-v7:$splib.supportLibrary"
+    api "com.android.support:multidex:$splib.supportmultidex"//谷歌分包方案，解决方法数最大值65536限制(api21以下需要该库)
 
     //第三方库
 
     //rxjava
-    api 'io.reactivex.rxjava2:rxjava:2.2.3'
-    api 'io.reactivex.rxjava2:rxandroid:2.0.2'
+    api "io.reactivex.rxjava2:rxjava:$thirdlib.rxjava"
+    api "io.reactivex.rxjava2:rxandroid:$thirdlib.rxandroid"
 
     //gson
-    api "com.google.code.gson:gson:2.8.2"
+    api "com.google.code.gson:gson:$thirdlib.gson"
 
     //okhttp
-    api 'com.squareup.okhttp3:okhttp:3.11.0'
-    api 'com.squareup.okhttp3:logging-interceptor:3.9.0' //okhttp日志拦截器
+    api "com.squareup.okhttp3:okhttp:$thirdlib.okhttp"
+    api "com.squareup.okhttp3:logging-interceptor:$thirdlib.okhttp3logginginterceptor" //okhttp日志拦截器
 
     //retrofit
-    api 'com.squareup.retrofit2:retrofit:2.4.0'
-    api 'com.squareup.retrofit2:converter-gson:2.4.0'   //Retrofit到Gson进行转换的库
-    api 'com.squareup.retrofit2:adapter-rxjava2:2.4.0'  //Retrofit到RxJava进行转换的库
+    api "com.squareup.retrofit2:retrofit:$thirdlib.retrofit"
+    api "com.squareup.retrofit2:converter-gson:$thirdlib.retrofit"   //Retrofit到Gson进行转换的库
+    api "com.squareup.retrofit2:adapter-rxjava2:$thirdlib.retrofit"  //Retrofit到RxJava进行转换的库
 
     //leakcanary内存泄漏检测
-    debugApi "com.squareup.leakcanary:leakcanary-android:1.6.2"
-    releaseApi "com.squareup.leakcanary:leakcanary-android-no-op:1.6.2"
+    debugApi "com.squareup.leakcanary:leakcanary-android:$thirdlib.leakcanary"
+    releaseApi "com.squareup.leakcanary:leakcanary-android-no-op:$thirdlib.leakcanary"
 
     //测试库
-    testImplementation 'junit:junit:4.12'
-    androidTestImplementation 'com.android.support.test:runner:1.0.2'
-    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
+    testImplementation "junit:junit:$testlib.junit"
+    androidTestImplementation "com.android.support.test:runner:$testlib.runner"
+    androidTestImplementation "com.android.support.test.espresso:espresso-core:$testlib.espressocore"
 }
