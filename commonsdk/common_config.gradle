@@ -1,3 +1,52 @@
+/**
+ * 公共gradle,用于统一各业务组件配置
+ */
+
+//本地properties文件配置数据
+Properties properties = new Properties()
+def writer = project.rootProject.file('local_config.properties')
+properties.load(writer.newDataInputStream())
+def verCode = properties.getProperty("versionCode")
+def appVersionName = properties.getProperty("versionName")
+def appversionCode = verCode.toInteger()
+
+
+android {
+    compileSdkVersion 28
+    defaultConfig {
+        minSdkVersion 21
+        targetSdkVersion 28
+        versionCode 1
+        versionName "1.0"
+        flavorDimensions "default"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            buildConfigField "String", "SERVER_URL", properties.getProperty("RELEASE_SERVER_URL")
+
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+
+        debug {
+            buildConfigField "String", "SERVER_URL", properties.getProperty("RELEASE_SERVER_URL")
+        }
+    }
+
+    lintOptions {
+        disable 'GoogleAppIndexingWarning'
+    }
+
+    //引入aar
+    repositories {
+        flatDir {
+            dirs 'libs','../commonservice/libs'
+        }
+    }
+
+}
+
 dependencies {
 //AppJoint
     implementation "io.github.prototypez:app-joint-core:1.0"

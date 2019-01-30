@@ -33,7 +33,6 @@ import io.github.prototypez.appjoint.core.ModuleSpec;
  * 全局基础类，管理全局单例
  */
 public abstract class AppApplication<T extends ApiServiceComponent> extends Application {
-  private static AppApplication mApplication;//把application设置为静态对象
   private T mApiServiceComponent;
   private SharedPreferencesUtils mSharedPreferencesUtils;
   private String baseUrl;
@@ -43,14 +42,10 @@ public abstract class AppApplication<T extends ApiServiceComponent> extends Appl
   //管理所有的Activity
   private HashMap<String, AppCompatActivity> mActivityHashMap = new HashMap<>();
 
-  public static AppApplication getInstance() {
-    return mApplication;
-  }
 
   @Override
   public void onCreate() {
     super.onCreate();
-    mApplication = this;
     mSharedPreferencesUtils = SharedPreferencesUtils.getInstance(this);
     mApiServiceComponent = getComponent();
 //    DaggerApiServiceComponent.builder()
@@ -65,8 +60,8 @@ public abstract class AppApplication<T extends ApiServiceComponent> extends Appl
    * @param action (动作)
    * @param bundle (绑定数据)
    */
-  public void startBackService(String action, Bundle bundle) {
-    Intent backService = new Intent(this, BackService.class);
+  public void startBackService(String action, Bundle bundle, Class service) {
+    Intent backService = new Intent(this, service);
     backService.setAction(action);
     if (bundle != null) {
       backService.putExtras(bundle);
@@ -199,4 +194,6 @@ public abstract class AppApplication<T extends ApiServiceComponent> extends Appl
   protected abstract T getComponent();
 
   protected abstract String setSharedpreferenceFileName();
+
+
 }

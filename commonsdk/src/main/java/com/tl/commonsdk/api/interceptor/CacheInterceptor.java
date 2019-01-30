@@ -1,11 +1,13 @@
 package com.tl.commonsdk.api.interceptor;
 
+import android.content.Context;
 import android.support.annotation.NonNull;
 
 import com.tl.commonsdk.app.AppApplication;
 import com.tl.commonsdk.util.NetworkUtils;
 
 import java.io.IOException;
+
 import okhttp3.CacheControl;
 import okhttp3.Interceptor;
 import okhttp3.Request;
@@ -18,16 +20,18 @@ import okhttp3.Response;
 public class CacheInterceptor implements Interceptor {
 
   private int cacheTime;
+  private Context context;
 
-  public CacheInterceptor(int cacheTime) {
+  public CacheInterceptor(Context context, int cacheTime) {
     this.cacheTime = cacheTime;
+    this.context = context;
   }
 
   @Override
   public Response intercept(@NonNull Chain chain) throws IOException {
     Request request = chain.request();
 
-    if (NetworkUtils.isNetworkAvailable(AppApplication.getInstance())) {//有网从服务器获取数据
+    if (NetworkUtils.isNetworkAvailable(context)) {//有网从服务器获取数据
       request = request.newBuilder()
           .cacheControl(CacheControl.FORCE_NETWORK)
           .build();

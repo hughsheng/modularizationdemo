@@ -14,8 +14,6 @@ public class BackService extends IntentService {
 
   public static final String ACTION_CACHE = "service.action.cache";
 
-  private AppApplication mApplication;
-
   public BackService() {
     super("BackService");
   }
@@ -23,7 +21,6 @@ public class BackService extends IntentService {
   @Override
   public void onCreate() {
     super.onCreate();
-    mApplication = AppApplication.getInstance();
   }
 
   @Override
@@ -38,7 +35,6 @@ public class BackService extends IntentService {
     }
 
   }
-
 
 
 }

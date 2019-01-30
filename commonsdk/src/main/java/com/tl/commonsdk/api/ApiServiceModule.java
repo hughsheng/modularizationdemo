@@ -59,7 +59,6 @@ public class ApiServiceModule {
   }
 
 
-
   @Provides
   @Singleton
   public Context provideContext() {
@@ -71,7 +70,7 @@ public class ApiServiceModule {
   @Singleton //注解实现单例
   protected Cache providesCache() {
     //添加缓存
-    File cacheFile = new File(AppApplication.getInstance().getExternalCacheDir(), "widgetCache");
+    File cacheFile = new File(mContext.getExternalCacheDir(), "widgetCache");
     return new Cache(cacheFile, CACHE_SIZE);
   }
 
@@ -94,7 +93,7 @@ public class ApiServiceModule {
   @Provides
   @Singleton
   protected CacheInterceptor providesCacheInterceptor() {
-    return new CacheInterceptor(CACHE_TIME);
+    return new CacheInterceptor(mContext, CACHE_TIME);
   }
 
   @Provides
@@ -107,7 +106,7 @@ public class ApiServiceModule {
   @Provides
   @Singleton
   protected X509TrustManager providesTrustManagerForCertificates(TrustManagerFactory
-                                                                       trustManagerFactory) {
+                                                                     trustManagerFactory) {
 
     // Use it to build an X509 trust manager.
     try {
@@ -206,13 +205,13 @@ public class ApiServiceModule {
   @Provides
   @Singleton
   protected OkHttpClient providesOkHttpClient(
- //                                             SSLSocketFactory sslSocketFactory,
- //                                             X509TrustManager x509TrustManager,
-                                              HttpLoggingInterceptor loggingInterceptor,
-                                              HeadInterceptor headInterceptor,
-                                              CacheInterceptor cacheInterceptor,
-                                              VerificationInterceptor verificationInterceptor,
-                                              Cache cache) {
+      //                                             SSLSocketFactory sslSocketFactory,
+      //                                             X509TrustManager x509TrustManager,
+      HttpLoggingInterceptor loggingInterceptor,
+      HeadInterceptor headInterceptor,
+      CacheInterceptor cacheInterceptor,
+      VerificationInterceptor verificationInterceptor,
+      Cache cache) {
 
     //配置拦截器
     return new OkHttpClient.Builder()

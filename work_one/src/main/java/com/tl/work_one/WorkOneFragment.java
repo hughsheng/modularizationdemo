@@ -6,12 +6,16 @@ import android.view.View;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.tl.commonsdk.app.AppApplication;
 import com.tl.commonsdk.fragment.BaseFragment;
 import com.tl.router.AppRouter;
 import com.tl.router.WorkTwoRouter;
+import com.tl.work_one.app.WorkOneApiServiceComponent;
+import com.tl.work_one.app.WorkOneApplication;
 
 import butterknife.BindView;
 import io.github.prototypez.appjoint.AppJoint;
+import retrofit2.Retrofit;
 
 /**
  * created by tl on 2019-1-25
@@ -41,6 +45,9 @@ public class WorkOneFragment extends BaseFragment {
 
   @Override
   public void initialization() {
+    WorkOneApiServiceComponent workOneApiServiceComponent =
+        WorkOneApplication.getInstance().getApiServiceComponent();
+    Retrofit retrofit = workOneApiServiceComponent.getRetrofit();
     final WorkTwoRouter workTwoRouter = AppJoint.service(WorkTwoRouter.class);
     work_one_tv.setOnClickListener(new View.OnClickListener() {
       @Override
